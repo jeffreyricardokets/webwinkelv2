@@ -27,5 +27,6 @@ def create_product(main_image):
 
 #change stock of the product
 def product_stock_change(product, stock_ammount):
-    ...
+    product.product_stock = stock_ammount
+    product.save()
     

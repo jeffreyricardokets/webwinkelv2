@@ -13,22 +13,28 @@ def order_items():
             user = Users.get(Users.user_id == item.user)
             product = Products.get(Products.product_id == item.product)
             if enough_in_stock(item.ammount, product):
+                remove_stock(product, item.ammount)
                 create_order_from_shoppingcart(item, product, user, order_id)
                 remove_item_from_shoppingcart(item)
             else:
                 print('not enough in stock')
         return redirect('/products')
 
-#check if we have enough products in stock
+#return how much we have in stock
 def check_product_in_stock(product):
     return product.product_stock
-
+#check if we have enough stock
 def enough_in_stock(ammount, product):
     product_stock = check_product_in_stock(product)
     if ammount <= product_stock:
         return True
     else:
         return False
+
+#remove stock from the product database
+def remove_stock(product,ammount_bought):
+    stock_ammount = product.product_stock - ammount_bought
+    products.product_stock_change(product, stock_ammount)
 
 #create new item in the order database
 def create_order_from_shoppingcart(item, product, user, order_id):

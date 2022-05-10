@@ -1,7 +1,9 @@
 from crypt import methods
+from time import time
 from unicodedata import category
-from flask import Flask, render_template, redirect, url_for, request, session, flash
+from flask import Flask, render_template, redirect, url_for, request, session, flash, app
 from flask_login import LoginManager, login_required, logout_user, current_user
+from datetime import timedelta
 from models import *
 import account
 import products as product_script
@@ -24,6 +26,11 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 query_catagories = catagory.query_all_in_catagories()
+
+@app.before_request
+def make_session_permenant():
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=120)
 
 @app.route("/")
 def index():
