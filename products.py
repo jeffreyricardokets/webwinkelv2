@@ -24,4 +24,8 @@ def create_product(main_image):
     product_create_by_user = current_user,
     product_main_image = main_image,
     catagory = product_catagory)
+
+#change stock of the product
+def product_stock_change(product, stock_ammount):
+    ...
     

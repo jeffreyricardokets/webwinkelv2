@@ -3,22 +3,36 @@ from flask import request, redirect
 from flask_login import current_user
 import datetime
 from tools import *
+import products
 
 def order_items():
     query = Shopping_cart.select().where(Shopping_cart.user == current_user.user_id)
     order_id = make_random_number_generator(10)
     if query.exists():
         for item in query:
-            create_order_from_shoppingcart(item , order_id)
-            remove_item_from_shoppingcart(item)
-        return redirect('/products')
-
-
-#create new item in the order database
-def create_order_from_shoppingcart(item , order_id):
             user = Users.get(Users.user_id == item.user)
             product = Products.get(Products.product_id == item.product)
-            Orders.create(user_id = user.user_id, product_id = product.product_id, ammount = item.ammount, order_date = datetime.datetime.now(), order_product_price = product.product_price, order_id = order_id)
+            if enough_in_stock(item.ammount, product):
+                create_order_from_shoppingcart(item, product, user, order_id)
+                remove_item_from_shoppingcart(item)
+            else:
+                print('not enough in stock')
+        return redirect('/products')
+
+#check if we have enough products in stock
+def check_product_in_stock(product):
+    return product.product_stock
+
+def enough_in_stock(ammount, product):
+    product_stock = check_product_in_stock(product)
+    if ammount <= product_stock:
+        return True
+    else:
+        return False
+
+#create new item in the order database
+def create_order_from_shoppingcart(item, product, user, order_id):
+    Orders.create(user_id = user.user_id, product_id = product.product_id, ammount = item.ammount, order_date = datetime.datetime.now(), order_product_price = product.product_price, order_id = order_id)
 
 #remove the item from the shopping cart
 def remove_item_from_shoppingcart(item):
@@ -58,3 +72,4 @@ def get_order_from_id(order_id):
     query = Orders.select(Products.product_name, Orders).join(Products, attr='product').where(order_id == order_id)
     if query.exists():
         return query
+
