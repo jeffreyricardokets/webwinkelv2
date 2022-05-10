@@ -5,7 +5,7 @@ from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
 from tools import *
 
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 server_file_path = pathlib.Path(__file__).parent.resolve()
 upload_folder = server_file_path / 'static' / 'uploads'

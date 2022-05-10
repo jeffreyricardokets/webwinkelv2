@@ -1,6 +1,3 @@
-from crypt import methods
-from time import time
-from unicodedata import category
 from flask import Flask, render_template, redirect, url_for, request, session, flash, app
 from flask_login import LoginManager, login_required, logout_user, current_user
 from datetime import timedelta
@@ -55,13 +52,11 @@ def login():
 
 @app.route('/register' , methods=['POST'])
 def register():
-    return account.create_user()
+    return redirect (account.create_user())
 
 @app.route('/login', methods = ['POST'])
 def user_login():
     return redirect(account.login_user())
-
-
 
 @app.route('/orders')
 @login_required
@@ -186,8 +181,6 @@ def create_catagory():
 def show_admin_dashboard():
     if current_user.is_admin:
         return render_template('admin_dashboard.html')
-
-
 
 @login_manager.user_loader
 def load_user(user_id):

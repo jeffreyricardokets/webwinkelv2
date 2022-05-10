@@ -6,34 +6,6 @@ import bcrypt
 
 salt = bcrypt.gensalt(rounds=8)
 
-def create_user():
-    #get the from data
-    form_first_name = request.form.get('firstname')
-    form_last_name = request.form.get('lastname')
-    form_user_email = request.form.get('email')
-    form_username = request.form.get('username')
-    form_password = request.form.get('password')
-    hashed_password = bcrypt.hashpw(form_password.encode('utf8'),salt)
-
-    if user_exist(form_username):
-        return 'User already exist'
-    elif email_exists(form_user_email):
-        return 'Email already exist'
-    else:
-        #create a user for our database
-        Users.create(user_first_name = form_first_name,
-        user_last_name = form_last_name,
-        user_email_address = form_user_email,
-        user_username = form_username,
-        user_password = hashed_password,
-        user_join_date = date.today(),
-        is_authenticated = True,
-        is_anonymous = False,
-        is_active = True,
-        is_admin = False)
-        return 'user created'
-
-    
 def login_user():
     #get data from form
     form_username = request.form.get('username')
@@ -50,6 +22,36 @@ def login_user():
             return '/'
     else:
         return '/'
+
+
+def create_user():
+    #get the from data
+    form_first_name = request.form.get('firstname')
+    form_last_name = request.form.get('lastname')
+    form_user_email = request.form.get('email')
+    form_username = request.form.get('username')
+    form_password = request.form.get('password')
+    hashed_password = bcrypt.hashpw(form_password.encode('utf8'),salt)
+
+    if user_exist(form_username):
+        return 'User already exist'
+    elif email_exists(form_user_email):
+        return 'Email already exist'
+    else:
+        #create a user for our database
+        user = Users.create(user_first_name = form_first_name,
+        user_last_name = form_last_name,
+        user_email_address = form_user_email,
+        user_username = form_username,
+        user_password = hashed_password,
+        user_join_date = date.today(),
+        is_authenticated = True,
+        is_anonymous = False,
+        is_active = True,
+        is_admin = False)
+        flask_login.login_user(user)
+        return '/account'
+    
 
 #check if user exist in our database
 def user_exist(username):
