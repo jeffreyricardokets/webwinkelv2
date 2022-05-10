@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Product name</th>
+            <th>Quantity</th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in query%}
+        <tr>
+            <td>{{ item.product.product_name }}</td>
+            <td>{{ item.ammount }}</td>
+            <td>
+                <form method="post" action="/cart/remove_item/{{ item.id }}">
+                    <button type="submit" class="btn btn-danger">Remove item</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<form method="post" action="/order_items">
+    <button type="submit" class="btn btn-success">Order all items</button>
+</form>
+
+{% endblock content %}
+

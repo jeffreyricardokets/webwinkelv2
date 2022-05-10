@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+<div class="col-3">
+  test
+</div>
+<div class="col-9">
+      {% for item in products %}
+      <div class="card">
+        <div class="card-horizontal">
+          <div class="img-square-wrapper">
+        <img class="" src="{{ url_for('static', filename = item.image.img_location )}}" alt="Card image cap">
+      </div>
+        <div class="card-body">
+          <h5 class="card-title">{{item.product_name}}</h5>
+          <p class="card-text">{{ item.product_description }}</p>
+          <a href="/products/{{item.product_id}}" class="btn btn-primary">Check and Order</a>
+        </div>
+      </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock content %}
+

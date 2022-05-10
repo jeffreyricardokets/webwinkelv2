@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="login_register_container">
+    <div class="grid_2_container"> 
+        <div class="grid_2_item">
+            <h1>
+                Register an account
+            </h1>
+            <form method="POST" action="/register">
+                <div class="mb-3">
+                    <label for="FirstName" class="form-label">firstname</label>
+                    <input type="text" class="form-control" id="FirstName" name="firstname">
+                  </div>
+                  <div class="mb-3">
+                    <label for="Lastname" class="form-label">lastname</label>
+                    <input type="text" class="form-control" id="Lastname" name="lastname">
+                  </div>
+                  <form>
+                    <div class="mb-3">
+                      <label for="Email" class="form-label">Email address</label>
+                      <input type="email" class="form-control" name="email" id="Email" aria-describedby="emailHelp">
+                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                <div class="mb-3">
+                    <label for="Username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="Username" name="username">
+                  </div>
+                  <div class="mb-3">
+                    <label for="Password" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password" id="Password">
+                  </div>
+                <input type="submit" name="register" value="register">
+            </form>
+        </div>
+        <div class="grid_2_item">
+            <h1>Welcome Back<br>
+                Please sign in</h1>
+            <form method="POST" action="/login">
+                <div class="mb-3">
+                    <label for="Username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="Username" name="username" aria-describedby="userhelp">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                  </div>
+                  <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+

@@ -1,0 +1,49 @@
+{% extends "admin_base.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col-6">
+    <form method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+        <label for="Productname" class="form-label">Product name:</label>
+        <input type="text" class="form-control" id="Productname" name="product_name" aria-describedby="productHelp">
+        <div id="productHelp" class="form-text">Name of the product</div>
+        </div>
+        <div class="mb-3">
+            <label for="Productdescription" class="form-label">Product description:</label>
+            <input type="text" class="form-control" id="Productdescription" name="product_description" aria-describedby="productdescriptionHelp">
+            <div id="productdescriptionHelp" class="form-text">Description of the product</div>
+            </div>
+        <div class="mb-3">
+            <label for="Stock" class="form-label">Stock:</label>
+            <input type="text" class="form-control" id="Stock" name="stock" aria-describedby="stockHelp">
+            <div id="stockHelp" class="form-text">Stock of the product</div>
+            </div>
+        <div class="mb-3">
+            <label for="Price" class="form-label">Price:</label>
+            <input type="text" class="form-control" id="Price" name="price" aria-describedby="priceHelp">
+            <div id="priceHelp" class="form-text">Price of the product</div>
+        </div>
+        <div class="mb-3">
+            <label for="Catagory" class="form_label">Catagory</label><br>
+            {% for item in catagory_query %}
+            <input class="form-check-input" type="radio" name="Catagory" id="Catagory" value="{{ item.catagory_name }}">
+            <label class="form-check-label" for="flexRadioDefault1">
+              {{ item.catagory_name }}
+            </label>
+            <br>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+            <input class="form-control" type="file" name="file" id="formFileMultiple" multiple required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    </div>
+</div>
+
+</div>
+</div>
+{% endblock content %}
+

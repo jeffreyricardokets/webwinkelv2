@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+
+    {% include 'sidebar.html' %}
+    <div class="col-9">
+    {% if items %}
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Order ID</th>
+                <th>Order date</th>
+                <th>Ammount spend</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items.values()%}
+            <tr>
+                <td>{{ item['order_id'] }}</td>
+                <td>{{ item['order_date']}}</td>
+                <td>{{ item['order_ammount']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <h3>You have nothing ordered yet</h3>
+    {% endif %}
+</div>
+</div>
+
+
+{% endblock content %}
+

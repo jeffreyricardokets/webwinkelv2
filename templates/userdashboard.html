@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+
+<div class="row">
+    {% include "sidebar.html" %}
+    <div class="col-9">
+        <h3>Account overview</h3>
+        <div class="jumbotron jumbotron-fluid background_color_blue">
+            <div class="container pt-4 pb-5">
+              <h2 class="display-4 dark_blue_text" > Hallo {{ current_user.user_username }}</h2>
+              <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock content %}
