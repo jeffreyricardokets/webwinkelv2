@@ -1,18 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="row">
-<div class="col-3">
+<div class="row py-6">
+<div class="col-2">
   test
 </div>
-<div class="col-9">
       {% for item in products %}
-      <div class="card">
-        <div class="card-horizontal">
-          <div class="img-square-wrapper">
-        <img class="" src="{{ url_for('static', filename = item.image.img_location )}}" alt="Card image cap">
+      <div class="col-2">
+      <div class="card" style="width: 100%;">
+        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+        <img src ="{{ url_for('static', filename = item.image.img_location )}}" alt="Card image cap" style="width:100%">
       </div>
-        <div class="card-body">
+      <div class="card-body">
           <h5 class="card-title">{{item.product_name}}</h5>
           <p class="card-text">{{ item.product_description }}</p>
           <a href="/products/{{item.product_id}}" class="btn btn-primary">Check and Order</a>
@@ -21,6 +20,5 @@
       </div>
       {% endfor %}
     </div>
-  </div>
 {% endblock content %}
 

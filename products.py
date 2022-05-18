@@ -29,4 +29,9 @@ def create_product(main_image):
 def product_stock_change(product, stock_ammount):
     product.product_stock = stock_ammount
     product.save()
+
+#check stock of a product
+#return how much we have in stock
+def check_product_in_stock(product):
+    return product.product_stock
     

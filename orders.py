@@ -20,12 +20,10 @@ def order_items():
                 print('not enough in stock')
         return redirect('/products')
 
-#return how much we have in stock
-def check_product_in_stock(product):
-    return product.product_stock
+
 #check if we have enough stock
 def enough_in_stock(ammount, product):
-    product_stock = check_product_in_stock(product)
+    product_stock = products.check_product_in_stock(product)
     if ammount <= product_stock:
         return True
     else:

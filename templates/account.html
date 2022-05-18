@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="login_register_container">
-    <div class="grid_2_container"> 
-        <div class="grid_2_item">
+<section class="py-5">
+    <div class="row"> 
+      <!--
+        <div class="col-6">
+          
             <h1>
                 Register an account
             </h1>
@@ -32,7 +34,9 @@
                 <input type="submit" name="register" value="register">
             </form>
         </div>
-        <div class="grid_2_item">
+        -->
+        <div class="col-3"></div>
+        <div class="col-6 py-6">
             <h1>Welcome Back<br>
                 Please sign in</h1>
             <form method="POST" action="/login">
@@ -52,6 +56,6 @@
             </form>
         </div>
     </div>
-</div>
+</section>
 {% endblock content %}
 
