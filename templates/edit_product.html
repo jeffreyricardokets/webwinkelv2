@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  .show{
+    display: block;
+  }
+  .hide{
+    display: none;
+  }
+</style>
+
+<div class="row py-6">
+  <div class="col-6">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        {% for img in images %}
+        <div class="carousel-item" id="img">
+          <img class="d-block w-100" src="{{ url_for('static', filename = img.p_img.img_location) }}" alt="First slide">
+          <a onclick="showForm()" href="#">
+            <p>
+              Click here to change the photo
+            </p>
+          </a>
+          <form method="POST" enctype="multipart/form-data" action="edit/change_photo" id="myForm"  class="hide">
+            <input type="file" id="myFile" name="file">
+            <input type="submit">
+          </form>
+        </div>
+        {% endfor %}
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+  <!--
+    <div class="col-6">
+        <form id='my_form' method="post" action="/addtocard">
+            <div class="form-group">
+                <input type="hidden" name="product_id" value="{{ product.product_id }}">
+                <div class="row">
+                <div class="col-6">
+                  <h2>{{ product.product_name }}</h2>
+                  <p>{{ product.product_description }}</p>
+                  <p>Stock available :{{product.product_stock}}</p>
+                <input type="text" class="form-control" id="Quantity" placeholder="Quantity" name="quantity">
+                <button type="submit" form="my_form" class="btn btn-success" style="float:right;">Add to cart</button>
+            </div>
+    </div>
+            </div>
+        </form>
+    </div>
+    -->
+  <div class="col-6">
+    <form id="my_form" method="POST" action="/products/{{ product.product_id }}/edit">
+      <div class="form-group">
+        <label for="product_name">Product name</label>
+        <input type="text" class='form-control' name="product_name" value="{{ product.product_name }}">
+        <br>
+        <label for="product_description">Product description</label>
+        <textarea class="form-control" name="product_description">{{ product.product_description }}</textarea>
+        <label for="product_stock">Product stock</label>
+        <input type="text" class="form-control" name="product_stock" value="{{ product.product_stock }}">
+        <label for="product_price">Product price</label>
+        <input type="text" class="form-control" name="product_price" value="{{ product.product_price }}">
+        <label for="">Product catagory</label><br>
+        <input type="radio" class="form-check-input" name="product_catagory" value="{{ product.catagory_id }}" checked>
+        <label class="form-check-label" for="product_catagory">
+          {{ product.catagory_id }}
+        </label><br>
+        <button type="submit" form="my_form" class="btn btn-success mt-2">Edit</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+<script>
+  first_image = true
+  if (first_image) {
+    var foto = document.getElementById('img')
+    foto.classList.add('active')
+    first_image = false
+  }
+
+  $('.carousel').carousel({
+    interval: 0
+  })
+
+  function showForm(){
+    var my_form = document.getElementById('myForm')
+    my_form.classList.remove('hide')
+    my_form.classList.add('show')
+  }
+
+</script>
+
+{% endblock content %}

@@ -2,8 +2,8 @@
 {% block content %}
 
 
-<div class="row py-6">
-    <div class="col-6">
+<div class="row py-7">
+    <div class="col-6" style="border: 1px solid black;">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
               <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -35,7 +35,8 @@
                 <div class="col-6">
                   <h2>{{ product.product_name }}</h2>
                   <p>{{ product.product_description }}</p>
-                  <p>Stock available :{{product.product_stock}}</p>
+                  <p>price : €{{product.product_price}}</p>
+                  <p>Stock available : {{product.product_stock}}</p>
                 <input type="text" class="form-control" id="Quantity" placeholder="Quantity" name="quantity">
                 <button type="submit" form="my_form" class="btn btn-success" style="float:right;">Add to cart</button>
             </div>

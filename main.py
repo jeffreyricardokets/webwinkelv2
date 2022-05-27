@@ -79,6 +79,33 @@ def show_product(product_id):
     else:
         return '<h1>Id not found</h1>'
 
+@app.route('/products/<product_id>/edit', methods = ['GET'])
+def edit_product(product_id):
+    if current_user.is_admin:
+        query = Products.select().where(Products.product_id == product_id)
+        if query.exists():
+            query_product = Products.get(product_id = product_id)
+            images = Product_images.select(Product_images,Images.img_location).join(Images, attr='p_img').where(Product_images.product == product_id)
+            return render_template('edit_product.html', product = query_product , images = images, query_catagories = query_catagories)
+        else:
+            return '<h1>Id not found</h1>'
+    else:
+        return 'You are not admin'
+
+@app.route('/products/<product_id>/edit', methods = ['POST'])
+def push_edit_product(product_id):
+    if current_user.is_admin:
+        product_script.edit_product(product_id)
+        return 'Product edited'
+    else:
+        return 'You are not admin'
+
+@app.route('/products/<product_id>/edit/change_photo', methods = ['POST'])
+def change_photo(product_id):
+    if current_user.is_admin:
+        upload.change_photo(product_id)
+        return redirect('/products/' + product_id)
+
 
 @app.route('/addtocard', methods = ['POST'])
 @login_required
@@ -107,7 +134,6 @@ def remove_item(item_id):
     item = Shopping_cart.get(Shopping_cart.id == item_id)
     item.delete_instance()
     return redirect('/cart')
-
 
 @app.route('/search', methods = ['POST'])
 def search_product():

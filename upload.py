@@ -59,3 +59,22 @@ def check_if_folder_exists(folder):
     if not os.path.exists(folder):
         os.mkdir(folder)
 
+def change_photo(product_id):
+    query = return_img_query(product_id)
+    img_location = get_img_location(query)
+
+    for f in request.files.getlist('file'):
+        secure_filename(f.filename)
+        f.seek(0)
+        f.save(os.path.join(img_location))
+
+def return_img_query(product_id):
+    return Product_images.select(Product_images,Images.img_location).join(Images, attr='p_img').where(Product_images.product == product_id)
+
+def get_img_location(query):
+    if query.exists():
+        for item in query:
+            return (server_file_path / 'static' / item.p_img.img_location)
+    else:
+        print('something went wrong')
+        return
